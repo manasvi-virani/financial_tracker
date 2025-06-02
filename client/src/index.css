@@ -1,0 +1,30 @@
+@import "tailwindcss";
+.body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: green;
+  background-color: black;
+  height: 100%;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: black;
+  background-color:white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+   --color-primary700:#1D4ED8 ;   
+   --color-primary800:#1E40AF ;   
+   /* Tailwind's blue-600 */
+  --color-secondary: #f59e0b; /* Tailwind's amber-500 */
+  --color-accent: #10b981;    /* Tailwind's emerald-500 */
+}
