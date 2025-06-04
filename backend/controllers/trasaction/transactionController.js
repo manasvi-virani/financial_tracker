@@ -9,7 +9,7 @@ export const transactionAdd = async (req, res) => {
       'SELECT * FROM tbaccount WHERE id = $1 AND user_id = $2',
       [account_id, userId]
     );
-
+console.log('account_id', account_id)
     if (accountRes.rows.length === 0) {
       return res.status(404).json({ error: 'Account not found' });
     }
@@ -69,7 +69,7 @@ export const getMonthlyGraphData = async (req, res) => {
   try {
     const graphRes = await pool.query(`
       SELECT 
-        TO_CHAR(DATE_TRUNC('month', createdAt), 'YYYY-MM') AS month,
+        TO_CHAR(DATE_TRUNC('month', createdAt), 'Mon') AS month,
         type,
         SUM(ammount) AS total
       FROM tbtransaction
