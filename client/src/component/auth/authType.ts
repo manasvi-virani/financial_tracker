@@ -3,6 +3,7 @@ export interface IUserInfo {
   lastname: string;
   firstname: string;
   email: string;
+  token:string
 }
 export interface IUserResponse {
 messsage: string;

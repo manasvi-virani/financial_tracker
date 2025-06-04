@@ -1,0 +1,17 @@
+.navbar{
+    background: linear-gradient(to right,#032c62,#047dcc);
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+    padding: 1rem;
+    color: var(--color-light_cyan);
+}
+.nav_link{
+    color: var(--color-light_cyan);
+    font-size: medium;
+
+}
+
+.nav_link:hover {
+    color: whitesmoke;
+}

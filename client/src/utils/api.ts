@@ -8,6 +8,14 @@ const axiosInstance = axios.create({
   },
 });
 
+const axiosInstanceWithToken = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+  },
+});
+
 export const getHttps = async <T>(endpoint: string, headers?: AxiosRequestHeaders): Promise<T> => {
   const response = await axiosInstance.get(endpoint, { headers });
   return response.data;
@@ -19,5 +27,11 @@ export const postHttps = async <T>(
   headers?: AxiosRequestHeaders
 ): Promise<T> => {
   const response = await axiosInstance.post(endpoint, body, { headers });
+  return response.data;
+};
+
+
+export const getHttpsWithAuth = async <T>(endpoint: string, headers?: AxiosRequestHeaders): Promise<T> => {
+  const response = await axiosInstanceWithToken.get(endpoint, { headers });
   return response.data;
 };

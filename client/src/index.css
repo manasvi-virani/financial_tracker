@@ -27,4 +27,8 @@
    /* Tailwind's blue-600 */
   --color-secondary: #f59e0b; /* Tailwind's amber-500 */
   --color-accent: #10b981;    /* Tailwind's emerald-500 */
+  --color-light_cyan: lightcyan;  
+    /* --color-light_cyan: lightcyan;  */
+  --color-light_gray:#787272 ; 
+
 }

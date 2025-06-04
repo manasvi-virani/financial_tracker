@@ -3,8 +3,8 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { postHttps } from "../../../utils/api";
 import { handleAxiosError } from "../../../utils/handleAxiosError";
 import {
-  registerSchema,
-  type RegisterFormValues,
+  loginSchema,
+  type LoginFormValues,
 } from "../../../schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "../../../component/form/InputField";
@@ -20,12 +20,12 @@ const SignIn: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
   });
   const [message, setMessage] = useState<string>("");
 
-  const onSubmit: SubmitHandler<RegisterFormValues> = async (formData) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = async (formData) => {
     console.log("Form Data:", formData);
     try {
       const payload = {
@@ -34,7 +34,10 @@ const SignIn: React.FC = () => {
 
       const response:IUserResponse = await postHttps("/auth/login", payload);
       dispatch(setUserData(response.user as IUserInfo));
-      navigate("/dahboard");
+      console.log('response', response)
+      localStorage.setItem("token", response.user.token);
+      localStorage.setItem("user", JSON.stringify(response.user));
+      navigate("/dashboard");
 
     } catch (error: unknown) {
       const errorMessage = handleAxiosError(error);
@@ -72,7 +75,7 @@ const SignIn: React.FC = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 cursor-pointer"
         >
           Login
         </button>

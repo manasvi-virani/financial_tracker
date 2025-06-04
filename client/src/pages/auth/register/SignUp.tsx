@@ -37,7 +37,7 @@ const SignUp: React.FC = () => {
 
       const response:IUserResponse = await postHttps("/auth/register", payload);
       dispatch(setUserData(response.user as IUserInfo));
-      navigate("/dahboard");
+      navigate("/dashboard");
 
     } catch (error: unknown) {
       const errorMessage = handleAxiosError(error);
@@ -126,7 +126,7 @@ const SignUp: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 cursor-pointer"
         >
           Sign Up
         </button>
