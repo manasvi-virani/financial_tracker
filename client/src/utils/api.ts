@@ -35,3 +35,13 @@ export const getHttpsWithAuth = async <T>(endpoint: string, headers?: AxiosReque
   const response = await axiosInstanceWithToken.get(endpoint, { headers });
   return response.data;
 };
+
+export const postHttpsWithAuth = async <T>(
+  endpoint: string,
+  body: object,
+  headers?: AxiosRequestHeaders
+): Promise<T> => {
+  const response = await axiosInstanceWithToken.post(endpoint, body, { headers });
+  return response.data;
+};
+

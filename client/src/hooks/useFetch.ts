@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getHttpsWithAuth } from '../utils/api';
 
-function useFetch<T  = unknown>(url: string) {
+function useFetch<T  = unknown>(url: string,  dependancy?:unknown) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -19,7 +19,7 @@ function useFetch<T  = unknown>(url: string) {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, dependancy]);
 
   return { data, loading, error };
 }

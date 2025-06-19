@@ -37,7 +37,7 @@ const SignUp: React.FC = () => {
 
       const response:IUserResponse = await postHttps("/auth/register", payload);
       dispatch(setUserData(response.user as IUserInfo));
-      navigate("/dashboard");
+      navigate("/");
 
     } catch (error: unknown) {
       const errorMessage = handleAxiosError(error);
@@ -101,6 +101,7 @@ const SignUp: React.FC = () => {
             register={register}
             error={errors.country}
             required ={true}
+            getLabel={(val: string) => val}
           />
         </div>
         <div>
@@ -111,6 +112,7 @@ const SignUp: React.FC = () => {
             register={register}
             error={errors.currency}
             required ={true}
+            getLabel={(val: string) => val}
           />
         </div>
         <div>

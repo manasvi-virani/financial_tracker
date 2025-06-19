@@ -10,7 +10,7 @@ export interface Iaccounts {
   updatedat: string;
 }
 
-interface IAccountResponse {
+export interface IAccountResponse {
   userId: number;
   accounts: Iaccounts[];
 }
@@ -18,6 +18,7 @@ interface IAccountResponse {
 export const AccountSummary = () => {
   const { data } = useFetch<IAccountResponse>("/account/get");
   const accounts: Iaccounts[] = data?.accounts.slice(0, 3) || [];
+  // const 
   console.log("accounts", accounts);
 
   return (

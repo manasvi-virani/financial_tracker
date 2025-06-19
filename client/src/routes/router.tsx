@@ -6,6 +6,9 @@ import SignIn from "../pages/auth/signIn/SignIn";
 import Dashboard from "../pages/dashboard/Dashboard";
 import PublicRoute from "./PublicRoute";
 import ProtectedRoute from "./ProtectedRoute";
+import Transaction from "../pages/transaction/Transaction";
+import Accounts from "../pages/accounts/Accounts";
+import Setting from "../pages/setting/Setting";
 
 const AppRouter: React.FC = () => {
   return (
@@ -30,10 +33,34 @@ const AppRouter: React.FC = () => {
 
       {/* Protected Route */}
       <Route
-        path="/dashboard"
+        path="/"
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/transactions"
+        element={
+          <ProtectedRoute>
+            <Transaction />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account"
+        element={
+          <ProtectedRoute>
+            <Accounts />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/setting"
+        element={
+          <ProtectedRoute>
+            <Setting />
           </ProtectedRoute>
         }
       />

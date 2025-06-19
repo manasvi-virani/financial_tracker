@@ -10,6 +10,7 @@ const initialState: IUserInfo = {
   lastname: '',
   firstname: '',
   email: '',
+  token:''
 };
 
 export const userSlice = createSlice({

@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import {createAccount, getAccount, getAccountSummary} from '../../controllers/account/accountController.js';
+import {createAccount, getAccount, getAccountSummary, updateAccount} from '../../controllers/account/accountController.js';
 import { authenticateToken } from '../../middlewares/authMiddleware.js';
 
 const accountRouter = express.Router();
@@ -27,6 +27,7 @@ const validateAccount = [
 accountRouter.post('/create', authenticateToken, validateAccount, createAccount);
 accountRouter.get('/get', authenticateToken, getAccount);
 accountRouter.get('/summary', authenticateToken, getAccountSummary); 
+accountRouter.patch('/update', authenticateToken, updateAccount); 
 
 
 export default accountRouter;

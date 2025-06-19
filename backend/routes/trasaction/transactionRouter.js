@@ -36,7 +36,7 @@ const validateTransaction = [
 
 // Protected route to add a transaction
 transactionRouter.post('/add', authenticateToken, validateTransaction, transactionAdd);
-transactionRouter.get('/get', authenticateToken, transactionGet);
+transactionRouter.post('/get', authenticateToken, transactionGet);
 transactionRouter.get('/trasaction_activity', authenticateToken, getMonthlyGraphData);
 
 

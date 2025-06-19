@@ -9,6 +9,15 @@
   color: var(--color-primary700);
   text-decoration: none;
 }
+.button{
+  background-color: var(--color-primary800);
+  color: white;
+  padding: 6px 2rem;
+  border: none;
+  border-radius: .5rem;
+  cursor: pointer;
+
+}
 
 .text-gray{
   color: var(--color-light_gray);
@@ -16,3 +25,5 @@
 .highcharts-credits {
   display: none;
 }
+.rdrDateDisplayWrapper{
+  display: none;}

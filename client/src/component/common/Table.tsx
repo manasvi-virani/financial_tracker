@@ -31,9 +31,9 @@ const CommonTable = <T extends Record<string, unknown>>({
 
   return (
     <div className="mt-4">
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto sm:rounded-lg">
         <table className="w-full text-sm text-left text-black">
-          <thead className="text-xs uppercase bg-blue-800 text-white">
+          <thead className="text-xs uppercase border-gray-300 border-b-2  ">
             <tr>
               {columns.map((col) => (
                 <th key={col.key} scope="col" className="px-6 py-3">
@@ -53,7 +53,8 @@ const CommonTable = <T extends Record<string, unknown>>({
               paginatedData.map((row, index) => (
                 <tr
                   key={index}
-                  className={`border-b ${index % 2 === 0 ? "bg-blue-100" : "bg-sky-100"} border-blue-400`}
+                  className={`
+                      border-gray-300 border-b`}
                 >
                   {columns.map((col) => (
                     <td key={col.key} className="px-6 py-4 whitespace-nowrap">

@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
 
       {/* Center: Tabs */}
       <div className="hidden md:flex space-x-6">
-        <NavLink to="/dashboard" className={`${style.nav_link}`}>
+        <NavLink to="/" className={`${style.nav_link}`}>
           Dashboard
         </NavLink>
         <NavLink to="/transactions" className={`${style.nav_link}`}>

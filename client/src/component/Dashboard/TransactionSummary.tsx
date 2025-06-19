@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import CommonTable from "../common/Table";
-interface ITransaction {
+import { useEffect, useState } from "react";
+import { postHttpsWithAuth } from "../../utils/api";
+export interface ITransaction {
   id: number;
   user_id: number;
   description: string;
@@ -15,7 +16,7 @@ interface ITransaction {
   [key: string]: unknown;
 }
 
-interface ITransactionResponse {
+export interface ITransactionResponse {
   data: ITransaction[];
 }
 
@@ -28,13 +29,28 @@ const TransactionSummary = () => {
     { key: "ammount", label: "Amount" },
     { key: "type", label: "Type" },
     ]
-  const { data } = useFetch<ITransactionResponse>("/transaction/get");
-  const trasactionData: ITransaction[] = data?.data.slice(0,5) || [];
+  // const { data } = useFetch<ITransactionResponse>("/transaction/get");
+  const [transactionData, setTrasactionData] = useState<ITransaction[]>([]);
+      useEffect(() => {
+      const fetchTransactionData = async () => {
+      try {
+        const response: ITransactionResponse = await postHttpsWithAuth(`/transaction/get?`, {});
+          const transactionData: ITransaction[] = response?.data.slice(0,5) || [];
+        setTrasactionData(transactionData);
+        // setData(response);
+      } catch (err) {
+        console.log('err', err)
+      } 
+    };
+
+    fetchTransactionData();       
+    }, []);
+
   return (
     <div className="text-end">
       <h1 className="text-start text-lg font-bold"> Latest Transaction </h1>
       <Link className="link mr-10" to={'/transaction'}>View all</Link>
-      <CommonTable<ITransaction> data={trasactionData} columns={columns} />
+      <CommonTable<ITransaction> data={transactionData} columns={columns} />
     </div>
   );
 };

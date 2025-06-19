@@ -11,6 +11,8 @@ interface InputFieldProps {
   error?: FieldError;
   className?: string;
   required?: boolean;
+  disabled?: boolean;
+  defaultValue?: string | number;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -22,13 +24,20 @@ const InputField: React.FC<InputFieldProps> = ({
   error,
   className = "",
   required = false,
+  disabled = false,
+  // defaultValue=""
 }) => {
+  const watch = register;
+  console.log('watch', watch(name))
+
   return (
     <div className="flex flex-col">
       {label && <label className="mb-1 font-medium flex">{label} {required && <p className="text-red-500 ml-1">*</p>} </label>}
       <input
         type={type}
+        disabled={disabled}
         placeholder={placeholder}
+        // value={defaultValue ? defaultValue : }
         {...register(name)}
         className={`border p-2 rounded ${className}`}
       />

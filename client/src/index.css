@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../node_modules/flowbite-datepicker";
 .body {
   margin: 0;
   padding: 0;

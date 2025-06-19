@@ -37,7 +37,7 @@ const SignIn: React.FC = () => {
       console.log('response', response)
       localStorage.setItem("token", response.user.token);
       localStorage.setItem("user", JSON.stringify(response.user));
-      navigate("/dashboard");
+      navigate("/");
 
     } catch (error: unknown) {
       const errorMessage = handleAxiosError(error);

@@ -76,3 +76,32 @@ export const getAccountSummary = async (req, res) => {
   }
 };
 
+export const updateAccount = async (req, res) => {
+  const { id, amount } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const existing = await pool.query(
+      'SELECT * FROM tbaccount WHERE id = $1 AND user_id = $2',
+      [id, userId]
+    );
+    if (!existing.rows.length) {
+      return res.status(400).json({ error: 'Account does not exists for this user' });
+    }
+    const updated_balance = parseFloat(existing.rows[0].account_balance) + parseFloat(amount)
+    console.log('existing.rows', existing.rows)
+    const result = await pool.query(
+      `UPDATE tbaccount (account_balance, id, user_id)
+       VALUES ($1, $2, $3)`,
+      [updated_balance, id, userId]
+    );
+    console.log('result', result)
+    res.status(200).json({ message: "Account updated successfully" });
+  } catch (err) {
+    console.error('Account creation error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+

@@ -13,10 +13,6 @@ export interface IAccountSummary {
 const Dashboard = () => {
   const { data } = useFetch<IAccountSummary>("/account/summary");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-  console.log("user", user);
-  console.log("data", data);
-  // console.log('loading', loading)
-  // console.log('error', error)
   return (
     <div className="container mx-auto p-4 ">
       <div className="text-start">
@@ -26,7 +22,7 @@ const Dashboard = () => {
       <div className="flex flex-col gap-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
           <div className="bg-blue-50 p-4 rounded shadow flex gap-4 justify-center">
-            <div className="rounded-full size-10 bg-blue-300 p-2">
+            <div className="rounded-full size-10 bg-blue-200 p-2">
               <DollarSign className="h-6 w-6 text-blue-800" />
             </div>
             <div className="">
@@ -35,7 +31,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="bg-blue-50 p-4 rounded shadow flex gap-4 justify-center">
-            <div className="rounded-full size-10 bg-blue-300 p-2">
+            <div className="rounded-full size-10 bg-blue-200 p-2">
               <BanknoteArrowUp className="h-6 w-6 text-blue-800" />
             </div>
             <div className="">
@@ -44,7 +40,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="bg-blue-50 p-4 rounded shadow flex gap-4 justify-center">
-            <div className="rounded-full size-10 bg-blue-300 p-2">
+            <div className="rounded-full size-10 bg-blue-200 p-2">
               <BanknoteArrowDown className="h-6 w-6 text-blue-800" />
             </div>
             <div className="">

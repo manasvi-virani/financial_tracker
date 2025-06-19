@@ -47,21 +47,60 @@ console.log('account_id', account_id)
   }
 };
 
-export const transactionGet  = async (req, res) => {
-  // const { account_id, amount, description, source, type } = req.body;
+export const transactionGet = async (req, res) => {
   const userId = req.user.id;
-
+  const body = req.body;
+  console.log('body', body)
+// console.log('req.query', Object.keys(req.query)[0])
+  // Extract the first query key as the search term
+  const searchKey = Object.keys(req.query)[0];
+  const searchValue = searchKey || '';
+const from = req.body.startDate;
+const to = req.body.endDate ;
+console.log('from', from)
+console.log('to', to)
+console.log('searchValue', searchValue)
+  // console.log('Search value:', searchValue);
+  if (searchValue && searchValue.split(/\s+/).length > 30) {
+    return res.status(400).json({ error: 'Search query too vague or invalid' });
+  }
   try {
-    const transactionRes = await pool.query(
-      'SELECT * FROM tbtransaction WHERE user_id = $1 ORDER BY createdAt DESC',
-      [userId]
-    );
-    res.status(200).json({ data: transactionRes.rows, message: "Transaction fetched successfully" });
+    let query = `SELECT * FROM tbtransaction WHERE user_id = $1`;
+
+    const values = [userId];
+    let paramIndex = 2;
+
+    if (searchValue) {
+      query += ` AND (source ILIKE $${paramIndex} OR description ILIKE $${paramIndex})`;
+      values.push(`%${searchValue}%`);
+      paramIndex++;
+    }
+    if (from) {
+      query += ` AND createdat >= $${paramIndex}`;
+      values.push(from);
+      paramIndex++;
+    }
+
+    if (to) {
+      query += ` AND createdat <= $${paramIndex}`;
+      values.push(to);
+      paramIndex++;
+    }
+    query += ' ORDER BY createdAt DESC';
+    console.log('query', query)
+
+    const transactionRes = await pool.query(query, values);
+
+    res.status(200).json({
+      data: transactionRes.rows,
+      message: 'Transaction fetched successfully',
+    });
   } catch (err) {
-    console.error('Transaction add error:', err);
+    console.error('Transaction fetch error:', err);
     res.status(500).json({ error: 'Server error' });
   }
 };
+
 
 export const getMonthlyGraphData = async (req, res) => {
   const userId = req.user.id;
