@@ -14,11 +14,9 @@ interface ItrasactionActivity {
 const LineChart : React.FC = () => {
     const { data } = useFetch<ItrasactionActivity>('/transaction/trasaction_activity');
     const transactionData = data?.data ?? [];
-    console.log('data', transactionData)
       const categories = transactionData.map(item => item.month);
   const incomeData = transactionData.map(item => item.income);
   const expenseData = transactionData.map(item => item.expense);
-    // console.log('data trasaction_activity', data?.data.map(item => item.month));
   // Define the chart options
   const options = {
     type: 'line',

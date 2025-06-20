@@ -19,7 +19,6 @@ export const AccountSummary = () => {
   const { data } = useFetch<IAccountResponse>("/account/get");
   const accounts: Iaccounts[] = data?.accounts.slice(0, 3) || [];
   // const 
-  console.log("accounts", accounts);
 
   return (
     <div className=" px-3">

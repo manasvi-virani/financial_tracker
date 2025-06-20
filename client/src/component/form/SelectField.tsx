@@ -26,7 +26,6 @@ const SelectField = <T extends object | string>({
   getLabel,
   disabled = false,
 }: SelectFieldProps<T>) => {
-  console.log('getLabel', getLabel)
   return (
     <div className="flex flex-col">
       {label && (
@@ -45,7 +44,6 @@ const SelectField = <T extends object | string>({
           {placeholder}
         </option>
         {options.map((option, index) => {
-            console.log('getLabel(option)', getLabel(option))
           return(
                       <option key={`${getLabel(option)}- ${index}`} value={JSON.stringify(option)}>
             {getLabel(option)

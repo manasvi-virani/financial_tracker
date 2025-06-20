@@ -29,7 +29,6 @@ const SignUp: React.FC = () => {
   const [message, setMessage] = useState<string>("");
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (formData) => {
-    console.log("formData", formData);
     try {
       const payload = {
         ...formData,

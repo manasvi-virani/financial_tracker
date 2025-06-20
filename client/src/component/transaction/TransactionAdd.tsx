@@ -57,7 +57,6 @@ const TransactionAdd = ({
     } catch (err) {
       console.log("err", err);
     }
-    console.log("Selected Account Object:", selectedAccount);
   };
   return (
     <div>

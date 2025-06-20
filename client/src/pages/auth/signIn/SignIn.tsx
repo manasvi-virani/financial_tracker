@@ -26,7 +26,6 @@ const SignIn: React.FC = () => {
   const [message, setMessage] = useState<string>("");
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (formData) => {
-    console.log("Form Data:", formData);
     try {
       const payload = {
         ...formData,
@@ -34,7 +33,6 @@ const SignIn: React.FC = () => {
 
       const response:IUserResponse = await postHttps("/auth/login", payload);
       dispatch(setUserData(response.user as IUserInfo));
-      console.log('response', response)
       localStorage.setItem("token", response.user.token);
       localStorage.setItem("user", JSON.stringify(response.user));
       navigate("/");

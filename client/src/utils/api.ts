@@ -45,3 +45,12 @@ export const postHttpsWithAuth = async <T>(
   return response.data;
 };
 
+export const patchHttpsWithAuth = async <T>(
+  endpoint: string,
+  body: object,
+  headers?: AxiosRequestHeaders
+): Promise<T> => {
+  const response = await axiosInstanceWithToken.patch(endpoint, body, { headers });
+  return response.data;
+};
+

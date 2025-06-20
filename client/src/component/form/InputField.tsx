@@ -28,7 +28,6 @@ const InputField: React.FC<InputFieldProps> = ({
   // defaultValue=""
 }) => {
   const watch = register;
-  console.log('watch', watch(name))
 
   return (
     <div className="flex flex-col">
