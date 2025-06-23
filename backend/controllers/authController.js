@@ -8,7 +8,7 @@ import pool from '../libs/db.js';
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const registerUser = async (req, res) => {
-  const { email, password, firstname, lastname, contact, country, currency } = req.body;
+  const { email, password, firstname, lastname, contact } = req.body;
 
   try {
     // Check if user already exists
@@ -22,9 +22,9 @@ export const registerUser = async (req, res) => {
 
     // Insert new user
     const result = await pool.query(
-      `INSERT INTO tbuser (email, password, firstname, lastname, contact, country, currency)
+      `INSERT INTO tbuser (email, password, firstname, lastname, contact)
        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, email, firstname, lastname`,
-      [email, hashedPassword, firstname, lastname, contact, country, currency]
+      [email, hashedPassword, firstname, lastname, contact]
     );
 
     // 🔐 Generate JWT Token using the newly created user
@@ -61,8 +61,13 @@ export const loginUser = async (req, res) => {
 
     // Generate JWT
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
-
-    res.status(200).json({ user:{ id: user.id, email: user.email, firstname: user.firstname, lastname: user.lastname, currency:user.currency, token }, message: 'Login successful' });
+  // res.cookie('token', token, {
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: 'Strict', 
+  //   maxAge: 24 * 60 * 60 * 1000,
+  // });
+    res.status(200).json({ user:{ id: user.id, email: user.email, firstname: user.firstname, lastname: user.lastname, currency:user.currency }, message: 'Login successful' });
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Server error' });

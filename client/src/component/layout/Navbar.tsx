@@ -3,8 +3,12 @@ import React from "react";
 import { UserCircle } from "lucide-react"; 
 import { NavLink } from "react-router-dom";
 import style from "./layout.module.css"; // Assuming you have a CSS module for styles
+import { useAppSelector } from "../../hooks";
+// import { useAppDispatch } from "../../hooks";
 
 const Navbar: React.FC = () => {
+  const useData = useAppSelector((state)=>state.user);
+  console.log('useData', useData)
   return (
     <nav className={`${style.navbar}`}>
       {/* Left: Logo & Name */}
@@ -25,7 +29,7 @@ const Navbar: React.FC = () => {
         <NavLink to="/transactions" className={`${style.nav_link}`}>
           Transactions
         </NavLink>
-        <NavLink to="/account" className={`${style.nav_link}`}>
+        <NavLink to="/accounts" className={`${style.nav_link}`}>
           Account
         </NavLink>
         <NavLink to="/settings" className={`${style.nav_link}`}>

@@ -49,7 +49,7 @@ const AppRouter: React.FC = () => {
         }
       />
       <Route
-        path="/account"
+        path="/accounts"
         element={
           <ProtectedRoute>
             <Accounts />

@@ -9,7 +9,6 @@ export const transactionAdd = async (req, res) => {
       'SELECT * FROM tbaccount WHERE id = $1 AND user_id = $2',
       [account_id, userId]
     );
-console.log('account_id', account_id)
     if (accountRes.rows.length === 0) {
       return res.status(404).json({ error: 'Account not found' });
     }

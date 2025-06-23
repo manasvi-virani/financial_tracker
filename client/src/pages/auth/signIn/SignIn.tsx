@@ -32,10 +32,13 @@ const SignIn: React.FC = () => {
       };
 
       const response:IUserResponse = await postHttps("/auth/login", payload);
+      console.log('response.user', response.user)
       dispatch(setUserData(response.user as IUserInfo));
       localStorage.setItem("token", response.user.token);
       localStorage.setItem("user", JSON.stringify(response.user));
-      navigate("/");
+  setTimeout(() => {
+        navigate("/");
+  }, 1000);
 
     } catch (error: unknown) {
       const errorMessage = handleAxiosError(error);

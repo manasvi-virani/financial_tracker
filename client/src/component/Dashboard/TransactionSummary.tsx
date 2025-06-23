@@ -49,7 +49,7 @@ const TransactionSummary = () => {
   return (
     <div className="text-end">
       <h1 className="text-start text-lg font-bold"> Latest Transaction </h1>
-      <Link className="link mr-10" to={'/transaction'}>View all</Link>
+      <Link className="link mr-10" to={'/transactions'}>View all</Link>
       <CommonTable<ITransaction> data={transactionData} columns={columns} />
     </div>
   );

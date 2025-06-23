@@ -13,6 +13,7 @@ import {
   updateAccount,
   type Iaccounts,
 } from "../../reducer/accountSlice";
+import { useState } from "react";
 
 export const TransferMoney = ({
   setOpen,
@@ -30,11 +31,10 @@ export const TransferMoney = ({
   });
   const dispatch = useAppDispatch();
   const { creating, data } = useAppSelector((state) => state.account);
-
-  //   const { ,  } = useAppSelector((state) => state.account);
   const accounts = data?.accounts.filter(
     (account) => account.account_number !== selectedAccount.account_number
   );
+  const [error, setError] = useState<string>("");
   const onSubmit: SubmitHandler<TransferMoneyFormValues> = async (formData) => {
     const receiverAccount = JSON.parse(formData.account);
     const payload = {
@@ -49,6 +49,7 @@ export const TransferMoney = ({
       }, 1000);
     } catch (err) {
       console.log(err);
+      setError(err);
     }
   };
   return (
@@ -92,6 +93,7 @@ export const TransferMoney = ({
             )}
           </button>
         </div>
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       </form>
     </div>
   );

@@ -8,13 +8,12 @@ import {
 } from "../../../schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "../../../component/form/InputField";
-import SelectField from "../../../component/form/SelectField";
 import { setUserData, } from "../../../reducer/userSlice";
 import { useAppDispatch } from "../../../hooks";
 import type { IUserInfo, IUserResponse } from "../../../component/auth/authType";
 import { Link, useNavigate } from "react-router-dom";
-const countries = ["Canada", "United States", "India", "Australia"];
-const currencies = ["CAD", "USD", "INR", "AUD"];
+// const countries = ["Canada", "United States", "India", "Australia"];
+// const currencies = ["CAD", "USD", "INR", "AUD"];
 
 const SignUp: React.FC = () => {
   const dispatch = useAppDispatch();  
@@ -92,7 +91,7 @@ const SignUp: React.FC = () => {
             required ={true}
           />
         </div>
-        <div>
+        {/* <div>
           <SelectField
             name="country"
             label="Country"
@@ -113,7 +112,7 @@ const SignUp: React.FC = () => {
             required ={true}
             getLabel={(val: string) => val}
           />
-        </div>
+        </div> */}
         <div>
           <InputField
             name="password"

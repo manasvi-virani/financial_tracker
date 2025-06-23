@@ -88,6 +88,8 @@ export const updateAccount = async (req, res) => {
   const { id, amount } = req.body;
   const userId = req.user.id;
   const receiver_id = req.body?.receiver_id;
+  let description = "Added";
+  let type ="income"
 
   try {
     const existing = await pool.query(
@@ -99,8 +101,14 @@ export const updateAccount = async (req, res) => {
         .status(400)
         .json({ error: "Account does not exists for this user" });
     }
+     if (amount > existing.rows[0].account_balance) {
+        return res.status(400).json({ error: 'Insufficient funds' });
+      }
     if (receiver_id) {
-      
+            const receiver = await pool.query(
+        "SELECT * FROM tbaccount WHERE id = $1 AND user_id = $2",
+        [receiver_id, userId]
+      );
       // minus amount from sender
       const updated_sender_balance =
         parseFloat(existing.rows[0].account_balance) - parseFloat(amount);
@@ -110,11 +118,22 @@ export const updateAccount = async (req, res) => {
          WHERE id = $2 AND user_id = $3`,
         [updated_sender_balance, id, userId]
       );
+      const sender_account_name = existing.rows[0].account_name;
+      const receiver_account_name = receiver.rows[0].account_name;
+
+     description = `Transfer (${sender_account_name} - ${receiver_account_name})`
+      await pool.query(
+      `INSERT INTO tbtransaction 
+        (user_id, account_id, description, status, source, ammount, type)
+       VALUES 
+        ($1, $2, $3, 'completed', $4, $5, $6)`,
+      [userId, id, description, sender_account_name, amount, type]
+    );
       // add money in receiver account
-      const receiver = await pool.query(
-        "SELECT * FROM tbaccount WHERE id = $1 AND user_id = $2",
-        [receiver_id, userId]
-      );
+      // const receiver = await pool.query(
+      //   "SELECT * FROM tbaccount WHERE id = $1 AND user_id = $2",
+      //   [receiver_id, userId]
+      // );
       const updated_balance =
         parseFloat(receiver.rows[0].account_balance) + parseFloat(amount);
       await pool.query(
@@ -123,6 +142,14 @@ export const updateAccount = async (req, res) => {
          WHERE id = $2 AND user_id = $3`,
         [updated_balance, receiver_id, userId]
       );
+    description = `Received (${sender_account_name} - ${receiver_account_name})`
+            await pool.query(
+      `INSERT INTO tbtransaction 
+        (user_id, account_id, description, status, source, ammount, type)
+       VALUES 
+        ($1, $2, $3, 'completed', $4, $5, $6)`,
+      [userId, receiver_id, description, receiver_account_name, amount, type]
+    );
     } else {
       const updated_balance =
         parseFloat(existing.rows[0].account_balance) + parseFloat(amount);
@@ -132,6 +159,13 @@ export const updateAccount = async (req, res) => {
          WHERE id = $2 AND user_id = $3`,
         [updated_balance, id, userId]
       );
+      await pool.query(
+      `INSERT INTO tbtransaction 
+        (user_id, account_id, description, status, source, ammount, type)
+       VALUES 
+        ($1, $2, $3, 'completed', $4, $5, $6)`,
+      [userId, id, description, existing.rows[0].account_name, amount, type]
+    );
     }
 
     res.status(200).json({ message: "Account updated successfully" });
