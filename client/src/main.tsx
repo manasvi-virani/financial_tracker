@@ -9,11 +9,11 @@ import { store } from "./store.ts";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <ErrorBoundary>
+      {/* <ErrorBoundary> */}
         <Provider store={store}>
           <App />
         </Provider>
-      </ErrorBoundary>  
+      {/* </ErrorBoundary>   */}
     </BrowserRouter>
   </StrictMode>
 );

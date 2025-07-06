@@ -1,5 +1,5 @@
 // routes/AppRouter.tsx
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import SignUp from "../pages/auth/register/SignUp";
 import SignIn from "../pages/auth/signIn/SignIn";
@@ -8,9 +8,21 @@ import PublicRoute from "./PublicRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import Transaction from "../pages/transaction/Transaction";
 import Accounts from "../pages/accounts/Accounts";
-import Setting from "../pages/setting/Setting";
+import { useDispatch } from "react-redux";
+import { getLocalStorage } from "../utils/localStorage";
+import { setUserData } from "../reducer/userSlice";
+import type { IUserInfo } from "../component/auth/authType";
+// import Setting from "../pages/setting/Setting";
 
 const AppRouter: React.FC = () => {
+  const dispatch =  useDispatch()
+   
+  useEffect(() => {
+    const user = getLocalStorage<IUserInfo>("user");
+    if(user) dispatch(setUserData(user))
+
+  }, [])
+  
   return (
     <Routes>
       {/* Public Routes */}
@@ -56,14 +68,14 @@ const AppRouter: React.FC = () => {
           </ProtectedRoute>
         }
       />
-      <Route
+      {/* <Route
         path="/setting"
         element={
           <ProtectedRoute>
             <Setting />
           </ProtectedRoute>
         }
-      />
+      /> */}
     </Routes>
   );
 };

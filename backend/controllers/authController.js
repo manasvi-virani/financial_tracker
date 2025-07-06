@@ -23,7 +23,7 @@ export const registerUser = async (req, res) => {
     // Insert new user
     const result = await pool.query(
       `INSERT INTO tbuser (email, password, firstname, lastname, contact)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, email, firstname, lastname`,
+       VALUES ($1, $2, $3, $4, $5) RETURNING id, email, firstname, lastname`,
       [email, hashedPassword, firstname, lastname, contact]
     );
 
@@ -67,7 +67,7 @@ export const loginUser = async (req, res) => {
   //   sameSite: 'Strict', 
   //   maxAge: 24 * 60 * 60 * 1000,
   // });
-    res.status(200).json({ user:{ id: user.id, email: user.email, firstname: user.firstname, lastname: user.lastname, currency:user.currency }, message: 'Login successful' });
+    res.status(200).json({ user:{ id: user.id, email: user.email, firstname: user.firstname, lastname: user.lastname, currency:user.currency ,token }, message: 'Login successful' });
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Server error' });

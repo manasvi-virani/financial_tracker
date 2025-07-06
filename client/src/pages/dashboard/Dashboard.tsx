@@ -4,6 +4,7 @@ import PieChart from "../../component/Dashboard/PieChart";
 import LineChart from "../../component/Dashboard/Linechart";
 import TransactionSummary from "../../component/Dashboard/TransactionSummary";
 import { AccountSummary } from "../../component/Dashboard/AccountSummary";
+import { getLocalStorage } from "../../utils/localStorage";
 export interface IAccountSummary {
   total_income: number;
   total_expense: number;
@@ -12,7 +13,8 @@ export interface IAccountSummary {
 }
 const Dashboard = () => {
   const { data } = useFetch<IAccountSummary>("/account/summary");
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const user = getLocalStorage("user");
+  console.log('user', user)
   return (
     <div className="container mx-auto p-4 ">
       <div className="text-start">
@@ -27,7 +29,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-medium text-lg">Available Balance</h2>
-              <p className="text-sm">{`${user.currency} $ ${data?.available_balance}`}</p>
+              <p className="text-sm">{`$ ${data?.available_balance} CAD`}</p>
             </div>
           </div>
           <div className="bg-blue-50 p-4 rounded shadow flex gap-4 justify-center">
@@ -36,7 +38,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-medium text-lg">Total Income</h2>
-              <p className="text-sm">{`${user.currency} $ ${data?.total_income}`}</p>
+              <p className="text-sm">{`$ ${data?.total_income} CAD`}</p>
             </div>
           </div>
           <div className="bg-blue-50 p-4 rounded shadow flex gap-4 justify-center">
@@ -45,7 +47,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-medium text-lg">Total Expense</h2>
-              <p className="text-sm">{`${user.currency} $ ${data?.total_expense}`}</p>
+              <p className="text-sm">{`$ ${data?.total_expense} CAD`}</p>
             </div>
           </div>
         </div>
